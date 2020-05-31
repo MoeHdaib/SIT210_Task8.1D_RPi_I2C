@@ -1,0 +1,22 @@
+#Library for i2c
+from smbus import SMBus
+
+#Address for he slave (Arduino)
+addr = 0x8
+
+#Declare that we will use i2c 1 connectionon RPi
+bus = SMBus(1)
+
+
+Print("1 for the led to turn ON or 0 gor it to turn OFF")
+while 1:
+    option = input("Enter option: ")
+
+    if option == "1":
+        #Turn LED on
+        bus.write_byte(addr, 0x1)
+    elif option == "0":
+        #Turn LED off
+        bus.write_byte(addr, 0x0)
+    else:
+        break
