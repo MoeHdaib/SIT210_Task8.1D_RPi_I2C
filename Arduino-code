@@ -1,0 +1,30 @@
+//Wire library for I2C
+#include <Wire.h>
+ 
+// LED pin
+int ledPin = 13; 
+ 
+void setup() {
+  // Join I2C bus as slave with address 8
+  Wire.begin(0x8);
+  
+  // Call ledFunc function when data received                
+  Wire.onReceive(ledFunc);
+  
+  pinMode(ledPin, OUTPUT);
+  digitalWrite(ledPin, LOW);
+}
+ 
+// Function that executes when the data is received from master (RPi)
+void ledFunc(int i) {
+  while (Wire.available())
+  {
+    // Read the data as char
+    char x = Wire.read();
+    digitalWrite(ledPin, x);
+  }
+}
+void loop() {
+  //delay 0.1 seconds
+  delay(100);
+}
